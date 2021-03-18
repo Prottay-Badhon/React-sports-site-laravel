@@ -189,7 +189,7 @@ function insertNewsApi(Request $request){
     }
     function allNews(){
       $news=DB::table('news')->join('categories','news.category_id','categories.id')->select('categories.*','news.*')->get();
-      return view('admin.allNews',compact('news'));
+      return view('Admin.allNews',compact('news'));
     }
 
     function deleteNews($id){
