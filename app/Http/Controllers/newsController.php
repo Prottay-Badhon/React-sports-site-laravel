@@ -66,42 +66,46 @@ class newsController extends Controller
 
 
 function insertNewsApi(Request $request){
-        $data =array();
-      $data['category_id']=$request->categoryId;
-      $data['headlines']=$request->headlines;
-      $data['news_description']=$request->description;
-      $data['publication_status']=$request->status;
+  $data =array();
+  $data['category_id']=$request->categoryId;
+  $data['headlines']=$request->headlines;
+  $data['news_description']=$request->description;
+  $data['publication_status']=$request->status;
 
-      $image = $request->file('newsPic');
-      $video = $request->file('newsVideo');
+  $image = $request->file('newsPic');
+  $video = $request->file('newsVideo');
 
-
-      if($image || $video ){
-        $imageName=Str::random(10);
-        $ext =strtolower($image->getClientOriginalExtension());
-        $imgFullName=$imageName.'.'.$ext;
-        $uploadPath = "newsPic/";
-        $imgUrl = $uploadPath.$imgFullName;
-        $success =$image->move($uploadPath,$imgFullName);
-        $data['news_pic']=$imgUrl;
-       
+if($image || $video){
+  if($image){
+    $imageName=Str::random(10);
+    $ext =strtolower($image->getClientOriginalExtension());
+    $imgFullName=$imageName.'.'.$ext;
+    $uploadPath = "newsPic/";
+    $imgUrl = $uploadPath.$imgFullName;
+    $success =$image->move($uploadPath,$imgFullName);
+    $data['news_pic']=$imgUrl; 
      
-        $videoName=Str::random(10);
-        $ext =strtolower($video->getClientOriginalExtension());
-        $vidFullName=$videoName.'.'.$ext;
-        $uploadPath = "newsVideo/";
-        $videoUrl = $uploadPath.$vidFullName;
-        $success =$video->move($uploadPath,$vidFullName);
-        $data['news_video']=$videoUrl;
-        $insertNews = DB::table('news')->insert($data);
-        return response()->json($insertNews);
-        
-      }
-        else {
-          $insertNews = DB::table('news')->insert($data);
-          return response()->json($insertNews);   
-        }
-    }
+  }
+
+
+  if($video ){
+    $videoName=Str::random(10);
+    $ext =strtolower($video->getClientOriginalExtension());
+    $vidFullName=$videoName.'.'.$ext;
+    $uploadPath = "newsVideo/";
+    $videoUrl = $uploadPath.$vidFullName;
+    $success =$video->move($uploadPath,$vidFullName);
+    $data['news_video']=$videoUrl;
+  }
+  $insertNews = DB::table('news')->insert($data);
+  return redirect()->back();
+  }
+    else {
+      $insertNews = DB::table('news')->insert($data);
+     return redirect()->back();
+      
+       }
+  }
 
     function editNewsApi($id){
           $editNews =DB::table('news')->where('news_id',$id)->first();
@@ -160,17 +164,20 @@ function insertNewsApi(Request $request){
       $image = $request->file('newsPic');
       $video = $request->file('newsVideo');
 
-
-      if($image || $video ){
+if($image || $video){
+      if($image){
         $imageName=Str::random(10);
         $ext =strtolower($image->getClientOriginalExtension());
         $imgFullName=$imageName.'.'.$ext;
         $uploadPath = "newsPic/";
         $imgUrl = $uploadPath.$imgFullName;
         $success =$image->move($uploadPath,$imgFullName);
-        $data['news_pic']=$imgUrl;
-       
-     
+        $data['news_pic']=$imgUrl; 
+         
+      }
+
+
+      if($video ){
         $videoName=Str::random(10);
         $ext =strtolower($video->getClientOriginalExtension());
         $vidFullName=$videoName.'.'.$ext;
@@ -178,9 +185,10 @@ function insertNewsApi(Request $request){
         $videoUrl = $uploadPath.$vidFullName;
         $success =$video->move($uploadPath,$vidFullName);
         $data['news_video']=$videoUrl;
-        $insertNews = DB::table('news')->insert($data);
-         return redirect()->back();
       }
+      $insertNews = DB::table('news')->insert($data);
+      return redirect()->back();
+    }
         else {
           $insertNews = DB::table('news')->insert($data);
          return redirect()->back();
