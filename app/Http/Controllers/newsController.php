@@ -98,11 +98,14 @@ if($image || $video){
     $data['news_video']=$videoUrl;
   }
   $insertNews = DB::table('news')->insert($data);
-  return redirect()->back();
+  return response()->json(["message"=>"hello from post route"],200,
+    ['Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io']);
   }
     else {
       $insertNews = DB::table('news')->insert($data);
-     return redirect()->back();
+      
+     return response()->json(["message"=>"hello from post route"],200,
+    ['Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io']);
       
        }
   }
