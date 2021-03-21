@@ -99,13 +99,21 @@ if($image || $video){
   }
   $insertNews = DB::table('news')->insert($data);
   return response()->json(["message"=>"hello from post route"],200,
-    ['Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io']);
+    [
+      'Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io',
+      'Access-Control-Allow-Headers'=>'Content-Type'
+
+    ]);
   }
     else {
       $insertNews = DB::table('news')->insert($data);
-      
+
      return response()->json(["message"=>"hello from post route"],200,
-    ['Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io']);
+      [
+      'Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io',
+      'Access-Control-Allow-Headers'=>'Content-Type'
+
+      ]);
       
        }
   }

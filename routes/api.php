@@ -66,11 +66,3 @@ Route::post('/resetPassword', [ForgetPasswordController::class, 'passwordReset']
 
 Route::middleware('auth:api')->get('/user', [userController::class, 'user' ]);
 //----------------------------------------------------------------------------------------------------
-Route::options('/{any}',function(){
-	  return response()->json([],200,
-    [
-    	'Access-Control-Allow-Origin'=>'https://prottay-badhon.github.io'
-    	'Access-Control-Allow-Headers'=>'Content-Type'
-
-	]);
-});
