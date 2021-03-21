@@ -98,13 +98,13 @@ if($image || $video){
     $data['news_video']=$videoUrl;
   }
   $insertNews = DB::table('news')->insert($data);
-  return response()->json(["message"=>"hello from post route"],200);
+  return response()->json($insertNews,200);
    
   }
     else {
       $insertNews = DB::table('news')->insert($data);
 
-     return response()->json(["message"=>"hello from post route"],200);
+     return response()->json($insertNews,200);
       
        }
   }
