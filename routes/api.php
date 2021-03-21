@@ -73,4 +73,4 @@ Route::options('/{any}',function(){
     	'Access-Control-Allow-Headers'=>'Content-Type'
 
 	]);
-})
+});
