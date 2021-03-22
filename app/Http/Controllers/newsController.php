@@ -8,6 +8,13 @@ use DB;
 class newsController extends Controller
 {
 
+
+  function deleteNewsApi($id){
+        $deleteNews=DB::table('news')->where('news_id',$id)->delete();
+        return response()->json([
+          "message"=>"successfuly deleted"
+        ]);
+    }
  function newsByCategoryApi($id){
    $category = DB::table('categories')->join('news','categories.id','news.category_id')
    ->where('id',$id)

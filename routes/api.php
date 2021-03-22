@@ -25,6 +25,9 @@ use App\Http\Controllers\userController;
     return $request->user();
 });*/
 
+Route::get('/deleteNews{id}',[newsController::class,'deleteNewsApi']);
+
+
 Route::get('/newsById{id}',[newsController::class,'newsByIdApi']);
 
 Route::get('/newsByCategory{id}',[newsController::class,'newsByCategoryApi']);
